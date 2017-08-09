@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mysql-dep
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql-dep
+    spec:
+      securityContext:
+        runAsUser: 1000
+      containers:
+      - name: mysql
+        image: mariadb
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: nfs-volume
+          mountPath: /var/lib/mysql
+          readOnly: false
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: mysql
+      volumes:
+      - name: nfs-volume
+        nfs:
+          server: 172.42.42.1
+          path: /var/nfs
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: mysql-app
+   labels:
+     app: mysql-app
+spec:
+   ports:
+     # the port that this service should serve on
+     - port: 3306
+   # label keys and values that must match in order to receive traffic for this service
+   selector:
+     app: mysql-dep

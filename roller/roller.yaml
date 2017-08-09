@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: roller
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: roller
+    spec:
+      securityContext:
+        runAsUser: 1000
+      containers:
+      - name: roller
+        image: snoopdave/roller
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: nfs-volume
+          mountPath: /var/lib/mysql
+          readOnly: false
+        env:
+        - name: MYSQL_HOST
+          value: mysql-app
+      volumes:
+      - name: nfs-volume
+        nfs:
+          server: 172.42.42.1
+          path: /var/nfs
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: roller
+   labels:
+     app: roller
+spec:
+   ports:
+     # the port that this service should serve on
+     - port: 8080
+   # label keys and values that must match in order to receive traffic for this service
+   selector:
+     app: roller
