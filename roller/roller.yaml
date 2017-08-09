@@ -18,11 +18,13 @@ spec:
         - containerPort: 8080
         volumeMounts:
         - name: nfs-volume
-          mountPath: /var/lib/mysql
+          mountPath: /var/nfs
           readOnly: false
         env:
         - name: MYSQL_HOST
           value: mysql-app
+        - name: STORAGE_ROOT
+          value: /var/nfs
       volumes:
       - name: nfs-volume
         nfs:
