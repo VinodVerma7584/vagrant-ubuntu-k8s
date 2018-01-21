@@ -32,7 +32,7 @@ Vagrant.configure(2) do |config|
         # Install dashboard on first node
         s.vm.provision :shell,
                        run: "always",
-                       inline: "kubectl create -f /vagrant/dashboard/dashboard.yaml; kubectl proxy &"
+                       inline: "start-weave; kubectl create -f /vagrant/dashboard/dashboard.yaml; kubectl proxy &"
       end
     end
   end
