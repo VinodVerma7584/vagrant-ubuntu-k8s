@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Mark Clarkson's JSONPath.sh
+# https://github.com/mclarkson/JSONPath.sh
+# Apache 2 / MIT license
+
 # ---------------------------------------------------------------------------
 # GLOBALS
 # ---------------------------------------------------------------------------
