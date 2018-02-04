@@ -1,0 +1,4 @@
+/var/nfs	172.42.42.11(rw,sync,no_subtree_check,no_root_squash) \
+		    172.42.42.11(rw,sync,no_subtree_check,no_root_squash) \
+		    172.42.42.11(rw,sync,no_subtree_check,no_root_squash)
+		

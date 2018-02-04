@@ -4,3 +4,4 @@
   roles:
     - k8s-base
     - k8s-worker
+    - nfs-client
